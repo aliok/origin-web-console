@@ -26,13 +26,31 @@ var getServiceConfig = function(configmaps, services) {
     return  _.findIndex(services, {metadata: {labels: {serviceName: _.get(configmap, 'metadata.name')}}}) !== -1;
   })
   .map(function(configmap) {
-    return {
-      id: _.get(configmap, 'metadata.name'),
-      name: _.get(configmap, 'metadata.name'),
-      type: configmap.data.type,
-      url: configmap.data.uri,
-      config: configmap.data
-    };
+    if(configmap.data && configmap.data.type === "keycloak"){
+      return {
+        id: "keycloak",
+        name: "keycloak",
+        type: configmap.data.type,
+        url: configmap.data.uri,
+        config: JSON.parse(configmap.data.public_installation)
+      };
+    } else if(configmap.data && configmap.data.type === "Custom Runtime Connector"){
+      return {
+        id: _.get(configmap, 'metadata.name'),
+        name: configmap.data.name,
+        type: configmap.data.type,
+        url: configmap.data.uri,
+        config: JSON.parse(configmap.data.config)
+      };
+    } else {
+      return {
+        id: _.get(configmap, 'metadata.name'),
+        name: _.get(configmap, 'metadata.name'),
+        type: configmap.data.type,
+        url: configmap.data.uri,
+        config: configmap.data
+      };
+    }
   }).value();
 };
 
