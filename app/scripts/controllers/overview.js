@@ -96,7 +96,7 @@ function OverviewController($scope,
   var imageStreamsVersion = APIService.getPreferredVersion('imagestreams');
   var limitRangesVersion = APIService.getPreferredVersion('limitranges');
   var podsVersion = APIService.getPreferredVersion('pods');
-  var replicaSetsVersion = APIService.getPreferredVersion('replicasets');
+  // var replicaSetsVersion = APIService.getPreferredVersion('replicasets');
   var replicationControllersVersion = APIService.getPreferredVersion('replicationcontrollers');
   var resourceQuotasVersion = APIService.getPreferredVersion('resourcequotas');
   var routesVersion = APIService.getPreferredVersion('routes');

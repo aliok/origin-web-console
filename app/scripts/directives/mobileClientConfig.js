@@ -8,9 +8,9 @@ angular.module('openshiftConsole').component('mobileClientConfig', {
     },
     templateUrl: 'views/mobile-client-config.html',
     controller: [
-      'APIService', 
-      'DataService', 
-      'API_CFG', 
+      'APIService',
+      'DataService',
+      'API_CFG',
       MobileClientConfigCtrl]
   });
 
@@ -53,12 +53,12 @@ function MobileClientConfigCtrl(APIService, DataService, API_CFG) {
     var context = {namespace: ctrl.projectName};
     //keep list of active services upto date
     watches.push(DataService.watch(
-      APIService.getPreferredVersion('serviceinstances'), 
-      context, 
+      APIService.getPreferredVersion('serviceinstances'),
+      context,
       function (serviceinstances){
         ctrl.services = serviceinstances.by('metadata.name');
         DataService.list(APIService.getPreferredVersion('configmaps'), context, updateClientConfig, {errorNotification: false});
-      }, 
+      },
       { errorNotification: false }
     ));
     watches.push(DataService.watch(APIService.getPreferredVersion('configmaps'), context, updateClientConfig, {errorNotification: false}));
@@ -71,7 +71,7 @@ function MobileClientConfigCtrl(APIService, DataService, API_CFG) {
       ctrl.prettyConfig = getClientConfig(ctrl.mobileClient, ctrl.serviceConfig, API_CFG);
     }
   };
-  
+
   ctrl.$onChanges = function(changes) {
     if (changes.mobileClient && ctrl.configmaps && ctrl.services) {
       var services = filterExcludedServices(ctrl.services, ctrl.mobileClient);

@@ -33,12 +33,12 @@
     var isServiceInstanceReady = $filter('isServiceInstanceReady');
     var isMobileService = $filter('isMobileService');
 
-    //TODO: Move to service or use APIService.getPreferredService
-    var mobileclientVersion = {
-      group: 'mobile.k8s.io',
-      version: 'v1alpha1',
-      resource: 'mobileclients'
-    };
+    // //TODO: Move to service or use APIService.getPreferredService
+    // var mobileclientVersion = {
+    //   group: 'mobile.k8s.io',
+    //   version: 'v1alpha1',
+    //   resource: 'mobileclients'
+    // };
 
     ctrl.$onInit = function() {
       ctrl.excluded = [];
@@ -53,7 +53,7 @@
         ctrl.services = _.filter(data, function (serviceInstance) {
           return isMobileService(serviceInstance) && isServiceInstanceReady(serviceInstance);
         });
-        
+
         ctrl.hasResources = !_.isEmpty(ctrl.services);
         ctrl.updateAssociations(ctrl.mobileClient);
       }));

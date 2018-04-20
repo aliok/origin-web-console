@@ -30,11 +30,13 @@ angular.module('openshiftConsole')
           title: $routeParams.mobileclient
         }
       ];
+
+      var watches = [];
+
       ctrl.$onDestroy = function(){
         DataService.unwatchAll(watches);
       };
 
-      var watches = [];
 
       ctrl.projectName = $routeParams.project;
       ProjectsService
@@ -48,7 +50,7 @@ angular.module('openshiftConsole')
             DataService.get(Constants.MOBILE_CLIENT_VERSION, $routeParams.mobileclient, context, { errorNotification: false })
           ]).then(_.spread(function(serviceClasses, mobileClient) {
               ctrl.loaded = true;
-              
+
               ctrl.serviceClasses = serviceClasses.by('metadata.name');
               ctrl.mobileClient = mobileClient;
 
